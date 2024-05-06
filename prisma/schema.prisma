@@ -12,3 +12,35 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
+model Question {
+  id          Int        @id @default(autoincrement())
+  title       String     @db.VarChar(255)
+  description String     @db.Text
+  status      Status     @default(DONT_KNOW)
+  complexity  Complexity @default(EASY)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  answers     Answer[]
+}
+
+model Answer {
+  id         Int      @id @default(autoincrement())
+  question   Question @relation(fields: [questionId], references: [id])
+  answer     String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  questionId Int
+}
+
+enum Status {
+  KNOW
+  IN_PROGRESS
+  DONT_KNOW
+}
+
+enum Complexity {
+  EASY
+  MEDIUM
+  HARD
+}
