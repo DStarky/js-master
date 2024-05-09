@@ -1,6 +1,9 @@
 import { Button, Table } from '@radix-ui/themes';
 import Link from 'next/link';
 
+import QuestionComplexityBadge from '@/components/ui/QuestionComplexityBadge';
+import QuestionStatusBadge from '@/components/ui/QuestionStatusBadge';
+
 import prisma from '../../../prisma/client';
 
 const QuestionPage = async () => {
@@ -34,19 +37,21 @@ const QuestionPage = async () => {
             <Table.Row key={question.id}>
               <Table.Cell>
                 {question.title}
-                <div className="mt-2 block md:hidden">{question.status}</div>
+                <div className="mt-2 block md:hidden">
+                  <QuestionStatusBadge status={question.status} />
+                </div>
               </Table.Cell>
               <Table.Cell>
                 {question.description}
                 <div className="mt-2 block md:hidden">
-                  {question.complexity}
+                  <QuestionComplexityBadge complexity={question.complexity} />
                 </div>
               </Table.Cell>
               <Table.Cell className="hidden md:table-cell">
-                {question.status}
+                <QuestionStatusBadge status={question.status} />
               </Table.Cell>
               <Table.Cell className="hidden md:table-cell">
-                {question.complexity}
+                <QuestionComplexityBadge complexity={question.complexity} />
               </Table.Cell>
               <Table.Cell className="hidden md:table-cell">
                 {question.createdAt.toLocaleDateString('ru-RU')}
