@@ -2,7 +2,6 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, Callout, TextField } from '@radix-ui/themes';
-import axios from 'axios';
 import 'easymde/dist/easymde.min.css';
 import { useRouter } from 'next/navigation';
 import { useMemo, useState } from 'react';
@@ -13,9 +12,10 @@ import { z } from 'zod';
 import ErrorMessage from '@/components/ui/ErrorMessage';
 import Spinner from '@/components/ui/Spinner';
 
+import { createNewQuestion } from '@/lib/api/createNewQuestion';
 import { createQuestionSchema } from '@/lib/validation/createQuestionSchema';
 
-type NewQuestionForm = z.infer<typeof createQuestionSchema>;
+export type NewQuestionForm = z.infer<typeof createQuestionSchema>;
 
 const NewQuestionPage = () => {
   const router = useRouter();
@@ -33,7 +33,7 @@ const NewQuestionPage = () => {
   const onSubmit = async (data: NewQuestionForm) => {
     try {
       setIsSubmitting(true);
-      await axios.post('/api/questions', data);
+      await createNewQuestion(data);
       router.push('/questions');
     } catch (error) {
       setIsSubmitting(false);
