@@ -10,6 +10,8 @@ import { Controller, useForm } from 'react-hook-form';
 import SimpleMDE from 'react-simplemde-editor';
 import { z } from 'zod';
 
+import ErrorMessage from '@/components/ui/ErrorMessage';
+
 import { createQuestionSchema } from '@/lib/validation/createQuestionSchema';
 
 type NewQuestionForm = z.infer<typeof createQuestionSchema>;
@@ -57,14 +59,7 @@ const NewQuestionPage = () => {
           placeholder="Title"
           {...register('title')}
         />
-        {errors.title && (
-          <Text
-            color="red"
-            as="p"
-          >
-            {errors.title.message}
-          </Text>
-        )}
+        <ErrorMessage>{errors?.title?.message}</ErrorMessage>
         <Controller
           name="description"
           control={control}
@@ -75,14 +70,7 @@ const NewQuestionPage = () => {
             />
           )}
         />
-        {errors.description && (
-          <Text
-            color="red"
-            as="p"
-          >
-            {errors.description.message}
-          </Text>
-        )}
+        <ErrorMessage>{errors?.description?.message}</ErrorMessage>
         <Button>Submit New Question</Button>
       </form>
     </div>
