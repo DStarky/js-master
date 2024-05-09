@@ -1,7 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button, Callout, Text, TextField } from '@radix-ui/themes';
+import { Button, Callout, TextField } from '@radix-ui/themes';
 import axios from 'axios';
 import 'easymde/dist/easymde.min.css';
 import { useRouter } from 'next/navigation';
@@ -11,6 +11,7 @@ import SimpleMDE from 'react-simplemde-editor';
 import { z } from 'zod';
 
 import ErrorMessage from '@/components/ui/ErrorMessage';
+import Spinner from '@/components/ui/Spinner';
 
 import { createQuestionSchema } from '@/lib/validation/createQuestionSchema';
 
@@ -27,12 +28,15 @@ const NewQuestionPage = () => {
     resolver: zodResolver(createQuestionSchema),
   });
   const [error, setError] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const onSubmit = async (data: NewQuestionForm) => {
     try {
+      setIsSubmitting(true);
       await axios.post('/api/questions', data);
       router.push('/questions');
     } catch (error) {
+      setIsSubmitting(false);
       setError('Something went wrong');
     }
   };
@@ -71,7 +75,10 @@ const NewQuestionPage = () => {
           )}
         />
         <ErrorMessage>{errors?.description?.message}</ErrorMessage>
-        <Button>Submit New Question</Button>
+        <Button disabled={isSubmitting}>
+          Submit New Question
+          {isSubmitting && <Spinner />}
+        </Button>
       </form>
     </div>
   );
