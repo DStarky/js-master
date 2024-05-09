@@ -7,7 +7,7 @@ import { NavBar } from '@/components/NavBar';
 
 import './globals.css';
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -19,13 +19,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html
+      lang="en"
+      className={inter.variable}
+    >
       <body className={inter.className}>
-        <Theme>
+        <Theme
+          accentColor="purple"
+          scaling="110%"
+        >
           <header>
             <NavBar />
           </header>
-          <main className='p-5'>{children}</main>
+          <main className="p-5">{children}</main>
         </Theme>
       </body>
     </html>
