@@ -46,6 +46,7 @@ const QuestionForm = ({ question }: QuestionFormProps) => {
         await createNewQuestion(data);
       }
       router.push('/questions');
+      router.refresh();
     } catch (error) {
       setIsSubmitting(false);
       setError('Something went wrong');

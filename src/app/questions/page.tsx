@@ -61,3 +61,5 @@ const QuestionPage = async () => {
   );
 };
 export default QuestionPage;
+
+export const dynamic = 'force-dynamic';
