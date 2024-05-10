@@ -1,6 +1,6 @@
 import { Table } from '@radix-ui/themes';
-import Link from 'next/link';
 
+import Link from '@/components/ui/Link';
 import QuestionComplexityBadge from '@/components/ui/QuestionComplexityBadge';
 import QuestionStatusBadge from '@/components/ui/QuestionStatusBadge';
 
@@ -34,12 +34,7 @@ const QuestionPage = async () => {
           {questions.map(question => (
             <Table.Row key={question.id}>
               <Table.Cell>
-                <Link
-                  href={`/questions/${question.id}`}
-                  className="text-blue-600 hover:underline"
-                >
-                  {question.title}
-                </Link>
+                <Link href={`/questions/${question.id}`}>{question.title}</Link>
                 <div className="mt-2 block md:hidden">
                   <QuestionStatusBadge status={question.status} />
                 </div>
