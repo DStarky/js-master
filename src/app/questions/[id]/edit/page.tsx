@@ -1,6 +1,14 @@
+import dynamic from 'next/dynamic';
 import { notFound } from 'next/navigation';
+
 import prisma from '../../../../../prisma/client';
-import QuestionForm from '../../_components/QuestionForm';
+
+import QuestionFormSkeleton from './loading';
+
+const QuestionForm = dynamic(() => import('../../_components/QuestionForm'), {
+  ssr: false,
+  loading: () => <QuestionFormSkeleton />,
+});
 
 interface QuestionDetailPageProps {
   params: {
