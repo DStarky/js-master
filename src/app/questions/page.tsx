@@ -36,7 +36,7 @@ const QuestionPage = async () => {
           {questions.map(question => (
             <Table.Row key={question.id}>
               <Table.Cell>
-                {question.title}
+                <Link href={`/questions/${question.id}`} className="text-blue-600 hover:underline">{question.title}</Link>
                 <div className="mt-2 block md:hidden">
                   <QuestionStatusBadge status={question.status} />
                 </div>
