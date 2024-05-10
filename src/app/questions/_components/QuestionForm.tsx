@@ -12,7 +12,7 @@ import { z } from 'zod';
 
 import { ErrorMessage, Spinner } from '@/components';
 import { questionSchema } from '@/lib/validation/questionSchema';
-import { createNewQuestion } from '@/service/createNewQuestion';
+import { createNewQuestion, updateQuestion } from '@/service/questionService';
 
 export type QuestionData = z.infer<typeof questionSchema>;
 
@@ -40,7 +40,11 @@ const QuestionForm = ({ question }: QuestionFormProps) => {
   const onSubmit = async (data: QuestionData) => {
     try {
       setIsSubmitting(true);
-      await createNewQuestion(data);
+      if (question) {
+        await updateQuestion(question.id, data);
+      } else {
+        await createNewQuestion(data);
+      }
       router.push('/questions');
     } catch (error) {
       setIsSubmitting(false);
@@ -85,7 +89,7 @@ const QuestionForm = ({ question }: QuestionFormProps) => {
         />
         <ErrorMessage>{errors?.description?.message}</ErrorMessage>
         <Button disabled={isSubmitting}>
-          Submit New Question
+          {question ? 'Update Question' : 'Create Question'}
           {isSubmitting && <Spinner />}
         </Button>
       </form>
