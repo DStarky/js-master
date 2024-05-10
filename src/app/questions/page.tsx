@@ -1,5 +1,4 @@
-import { Button, Table } from '@radix-ui/themes';
-import delay from 'delay';
+import { Table } from '@radix-ui/themes';
 import Link from 'next/link';
 
 import QuestionComplexityBadge from '@/components/ui/QuestionComplexityBadge';
@@ -11,7 +10,6 @@ import QuestionActions from './QuestionActions';
 
 const QuestionPage = async () => {
   const questions = await prisma.question.findMany();
-  await delay(2000);
 
   return (
     <div>
@@ -36,7 +34,12 @@ const QuestionPage = async () => {
           {questions.map(question => (
             <Table.Row key={question.id}>
               <Table.Cell>
-                <Link href={`/questions/${question.id}`} className="text-blue-600 hover:underline">{question.title}</Link>
+                <Link
+                  href={`/questions/${question.id}`}
+                  className="text-blue-600 hover:underline"
+                >
+                  {question.title}
+                </Link>
                 <div className="mt-2 block md:hidden">
                   <QuestionStatusBadge status={question.status} />
                 </div>

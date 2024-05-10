@@ -1,5 +1,6 @@
 import { Card, Flex, Heading, Text } from '@radix-ui/themes';
 import { notFound } from 'next/navigation';
+import Markdown from 'react-markdown';
 
 import QuestionComplexityBadge from '@/components/ui/QuestionComplexityBadge';
 import QuestionStatusBadge from '@/components/ui/QuestionStatusBadge';
@@ -30,8 +31,8 @@ const QuestionDetailPage = async ({ params }: QuestionDetailPageProps) => {
         <QuestionComplexityBadge complexity={question.complexity} />
         <Text>{question.createdAt.toLocaleDateString('ru-RU')}</Text>
       </Flex>
-      <Card>
-        <p>{question.description}</p>
+      <Card className="prose" mt='4'>
+        <Markdown>{question.description}</Markdown>
       </Card>
     </div>
   );

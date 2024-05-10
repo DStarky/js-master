@@ -5,7 +5,7 @@ const QuestionActions = () => {
   return (
     <div className="mb-5">
       <Link href="/questions/new">
-        <Button>New Question</Button>
+        <Button className="cursor-pointer">New Question</Button>
       </Link>
     </div>
   );
