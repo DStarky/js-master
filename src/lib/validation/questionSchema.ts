@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const createQuestionSchema = z.object({
+export const questionSchema = z.object({
   title: z
     .string()
     .min(1, { message: 'Title is required' })

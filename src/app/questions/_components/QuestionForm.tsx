@@ -11,10 +11,10 @@ import { Controller, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 import { ErrorMessage, Spinner } from '@/components';
-import { createQuestionSchema } from '@/lib/validation/createQuestionSchema';
+import { questionSchema } from '@/lib/validation/questionSchema';
 import { createNewQuestion } from '@/service/createNewQuestion';
 
-export type QuestionData = z.infer<typeof createQuestionSchema>;
+export type QuestionData = z.infer<typeof questionSchema>;
 
 const SimpleMDE = dynamic(() => import('react-simplemde-editor'), {
   ssr: false,
@@ -32,7 +32,7 @@ const QuestionForm = ({ question }: QuestionFormProps) => {
     handleSubmit,
     formState: { errors },
   } = useForm<QuestionData>({
-    resolver: zodResolver(createQuestionSchema),
+    resolver: zodResolver(questionSchema),
   });
   const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
