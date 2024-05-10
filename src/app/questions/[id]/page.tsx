@@ -31,7 +31,10 @@ const QuestionDetailPage = async ({ params }: QuestionDetailPageProps) => {
         <QuestionComplexityBadge complexity={question.complexity} />
         <Text>{question.createdAt.toLocaleDateString('ru-RU')}</Text>
       </Flex>
-      <Card className="prose" mt='4'>
+      <Card
+        className="prose"
+        mt="4"
+      >
         <Markdown>{question.description}</Markdown>
       </Card>
     </div>
