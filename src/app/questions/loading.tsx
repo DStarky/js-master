@@ -1,21 +1,16 @@
-import { Button, Table } from '@radix-ui/themes';
-import delay from 'delay';
-import Link from 'next/link';
-
-import QuestionComplexityBadge from '@/components/ui/QuestionComplexityBadge';
-import QuestionStatusBadge from '@/components/ui/QuestionStatusBadge';
-
-import prisma from '../../../prisma/client';
+import { Table } from '@radix-ui/themes';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 
 import QuestionActions from './QuestionActions';
 
-const QuestionPage = async () => {
-  const questions = await prisma.question.findMany();
-  await delay(2000);
+const LoadingQuestionsPage = () => {
+  const questions = Array.from({ length: 10 });
 
   return (
     <div>
       <QuestionActions />
+
       <Table.Root variant="surface">
         <Table.Header>
           <Table.Row>
@@ -33,28 +28,28 @@ const QuestionPage = async () => {
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {questions.map(question => (
-            <Table.Row key={question.id}>
+          {questions.map((question, index) => (
+            <Table.Row key={index}>
               <Table.Cell>
-                {question.title}
+                <Skeleton />
                 <div className="mt-2 block md:hidden">
-                  <QuestionStatusBadge status={question.status} />
+                  <Skeleton />
                 </div>
               </Table.Cell>
               <Table.Cell>
-                {question.description}
+                <Skeleton />
                 <div className="mt-2 block md:hidden">
-                  <QuestionComplexityBadge complexity={question.complexity} />
+                  <Skeleton />
                 </div>
               </Table.Cell>
               <Table.Cell className="hidden md:table-cell">
-                <QuestionStatusBadge status={question.status} />
+                <Skeleton />
               </Table.Cell>
               <Table.Cell className="hidden md:table-cell">
-                <QuestionComplexityBadge complexity={question.complexity} />
+                <Skeleton />
               </Table.Cell>
               <Table.Cell className="hidden md:table-cell">
-                {question.createdAt.toLocaleDateString('ru-RU')}
+                <Skeleton />
               </Table.Cell>
             </Table.Row>
           ))}
@@ -63,4 +58,4 @@ const QuestionPage = async () => {
     </div>
   );
 };
-export default QuestionPage;
+export default LoadingQuestionsPage;
