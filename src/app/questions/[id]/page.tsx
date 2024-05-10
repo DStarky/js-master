@@ -1,4 +1,8 @@
+import { Card, Flex, Heading, Text } from '@radix-ui/themes';
 import { notFound } from 'next/navigation';
+
+import QuestionComplexityBadge from '@/components/ui/QuestionComplexityBadge';
+import QuestionStatusBadge from '@/components/ui/QuestionStatusBadge';
 
 import prisma from '../../../../prisma/client';
 
@@ -17,11 +21,18 @@ const QuestionDetailPage = async ({ params }: QuestionDetailPageProps) => {
 
   return (
     <div>
-      <p>{question.title}</p>
-      <p>{question.description}</p>
-      <p>{question.status}</p>
-      <p>{question.complexity}</p>
-      <p>{question.createdAt.toLocaleDateString('ru-RU')}</p>
+      <Heading>{question.title}</Heading>
+      <Flex
+        gap="3"
+        my="2"
+      >
+        <QuestionStatusBadge status={question.status} />
+        <QuestionComplexityBadge complexity={question.complexity} />
+        <Text>{question.createdAt.toLocaleDateString('ru-RU')}</Text>
+      </Flex>
+      <Card>
+        <p>{question.description}</p>
+      </Card>
     </div>
   );
 };
