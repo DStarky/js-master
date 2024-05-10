@@ -1,12 +1,10 @@
-import { Pencil2Icon } from '@radix-ui/react-icons';
-import { Box, Button, Card, Flex, Grid, Heading, Text } from '@radix-ui/themes';
-import Link from 'next/link';
+import { Box, Grid } from '@radix-ui/themes';
 import { notFound } from 'next/navigation';
-import Markdown from 'react-markdown';
 
 import prisma from '../../../../prisma/client';
 
-import { QuestionComplexityBadge, QuestionStatusBadge } from '@/components';
+import EditQuestionButton from './EditQuestionButton';
+import QuestionDetails from './QuestionDetails';
 
 interface QuestionDetailPageProps {
   params: {
@@ -27,29 +25,10 @@ const QuestionDetailPage = async ({ params }: QuestionDetailPageProps) => {
       gap="5"
     >
       <Box>
-        <Heading>{question.title}</Heading>
-        <Flex
-          gap="3"
-          my="2"
-        >
-          <QuestionStatusBadge status={question.status} />
-          <QuestionComplexityBadge complexity={question.complexity} />
-          <Text>{question.createdAt.toLocaleDateString('ru-RU')}</Text>
-        </Flex>
-        <Card
-          className="prose"
-          mt="4"
-        >
-          <Markdown>{question.description}</Markdown>
-        </Card>
+        <QuestionDetails question={question} />
       </Box>
       <Box>
-        <Link href={`/questions/${question.id}/edit`}>
-          <Button>
-            <Pencil2Icon />
-            Edit Question
-          </Button>
-        </Link>
+        <EditQuestionButton questionId={question.id} />
       </Box>
     </Grid>
   );
