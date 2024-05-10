@@ -1,12 +1,11 @@
 import { Table } from '@radix-ui/themes';
 
 import Link from '@/components/ui/Link';
-import QuestionComplexityBadge from '@/components/ui/QuestionComplexityBadge';
-import QuestionStatusBadge from '@/components/ui/QuestionStatusBadge';
 
 import prisma from '../../../prisma/client';
 
 import QuestionActions from './QuestionActions';
+import { QuestionComplexityBadge, QuestionStatusBadge } from '@/components';
 
 const QuestionPage = async () => {
   const questions = await prisma.question.findMany();

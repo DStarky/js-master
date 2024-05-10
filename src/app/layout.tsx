@@ -3,9 +3,8 @@ import '@radix-ui/themes/styles.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 
-import { NavBar } from '@/components/NavBar';
-
 import './globals.css';
+import { NavBar } from '@/components';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 

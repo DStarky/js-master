@@ -9,11 +9,9 @@ import { useMemo, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import ErrorMessage from '@/components/ui/ErrorMessage';
-import Spinner from '@/components/ui/Spinner';
-
-import { createNewQuestion } from '@/lib/api/createNewQuestion';
+import { ErrorMessage, Spinner } from '@/components';
 import { createQuestionSchema } from '@/lib/validation/createQuestionSchema';
+import { createNewQuestion } from '@/service/createNewQuestion';
 
 export type NewQuestionForm = z.infer<typeof createQuestionSchema>;
 

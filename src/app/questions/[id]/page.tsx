@@ -2,10 +2,9 @@ import { Card, Flex, Heading, Text } from '@radix-ui/themes';
 import { notFound } from 'next/navigation';
 import Markdown from 'react-markdown';
 
-import QuestionComplexityBadge from '@/components/ui/QuestionComplexityBadge';
-import QuestionStatusBadge from '@/components/ui/QuestionStatusBadge';
-
 import prisma from '../../../../prisma/client';
+
+import { QuestionComplexityBadge, QuestionStatusBadge } from '@/components';
 
 interface QuestionDetailPageProps {
   params: {
