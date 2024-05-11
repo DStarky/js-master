@@ -5,18 +5,22 @@ import { AlertDialog, Button } from '@radix-ui/themes';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
+import { Spinner } from '@/components';
 import { deleteQuestion } from '@/service/questionService';
 
 const DeleteQuestionButton = ({ questionId }: { questionId: number }) => {
   const router = useRouter();
   const [error, setError] = useState<boolean>(false);
+  const [isDeleting, setIsDeleting] = useState<boolean>(false);
 
   const deleteHandler = async (questionId: number) => {
     try {
+      setIsDeleting(true);
       await deleteQuestion(questionId);
       router.push('/questions');
       router.refresh();
     } catch (error) {
+      setIsDeleting(false);
       setError(true);
     }
   };
@@ -28,8 +32,9 @@ const DeleteQuestionButton = ({ questionId }: { questionId: number }) => {
           <Button
             color="red"
             className="cursor-pointer"
+            disabled={isDeleting}
           >
-            <TrashIcon /> Delete Question
+            <TrashIcon /> Delete Question {isDeleting && <Spinner />}
           </Button>
         </AlertDialog.Trigger>
         <AlertDialog.Content className="AlertDialogContent">
@@ -53,6 +58,7 @@ const DeleteQuestionButton = ({ questionId }: { questionId: number }) => {
                 className="cursor-pointer"
                 color="gray"
                 variant="soft"
+                disabled={isDeleting}
               >
                 Cancel
               </Button>
@@ -63,6 +69,7 @@ const DeleteQuestionButton = ({ questionId }: { questionId: number }) => {
                 className="cursor-pointer"
                 variant="soft"
                 onClick={() => deleteHandler(questionId)}
+                disabled={isDeleting}
               >
                 Yes, delete question
               </Button>
