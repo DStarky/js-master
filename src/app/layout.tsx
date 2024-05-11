@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 
 import './globals.css';
+import AuthProvider from '@/auth/Provider';
 import { NavBar } from '@/components';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
@@ -23,15 +24,19 @@ export default function RootLayout({
       className={inter.variable}
     >
       <body className={inter.className}>
-        <Theme
-          accentColor="purple"
-          scaling="110%"
-        >
-          <header>
-            <NavBar />
-          </header>
-          <main className="p-5"><Container>{children}</Container></main>
-        </Theme>
+        <AuthProvider>
+          <Theme
+            accentColor="purple"
+            scaling="110%"
+          >
+            <header>
+              <NavBar />
+            </header>
+            <main className="p-5">
+              <Container>{children}</Container>
+            </main>
+          </Theme>
+        </AuthProvider>
       </body>
     </html>
   );
