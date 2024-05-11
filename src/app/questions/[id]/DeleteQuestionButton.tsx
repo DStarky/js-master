@@ -30,7 +30,7 @@ const DeleteQuestionButton = ({ questionId }: { questionId: number }) => {
             marginTop: 25,
           }}
         >
-          <AlertDialog.Cancel>
+          <AlertDialog.Cancel> 
             <Button
               className="cursor-pointer"
               color="gray"
