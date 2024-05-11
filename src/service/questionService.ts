@@ -9,3 +9,7 @@ export async function createNewQuestion(data: QuestionData) {
 export async function updateQuestion(id: number, data: QuestionData) {
   await axios.patch(`/api/questions/${id}`, data);
 }
+
+export async function deleteQuestion(id: number) {
+  await axios.delete(`/api/questions/${id}`);
+}

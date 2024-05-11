@@ -17,7 +17,6 @@ const QuestionPage = async () => {
         <Table.Header>
           <Table.Row>
             <Table.ColumnHeaderCell>Title</Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell>Description</Table.ColumnHeaderCell>
             <Table.ColumnHeaderCell className="hidden md:table-cell">
               Status
             </Table.ColumnHeaderCell>
@@ -34,13 +33,8 @@ const QuestionPage = async () => {
             <Table.Row key={question.id}>
               <Table.Cell>
                 <Link href={`/questions/${question.id}`}>{question.title}</Link>
-                <div className="mt-2 block md:hidden">
+                <div className="mt-2 block md:hidden space-x-3">
                   <QuestionStatusBadge status={question.status} />
-                </div>
-              </Table.Cell>
-              <Table.Cell>
-                {question.description}
-                <div className="mt-2 block md:hidden">
                   <QuestionComplexityBadge complexity={question.complexity} />
                 </div>
               </Table.Cell>

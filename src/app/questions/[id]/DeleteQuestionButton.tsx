@@ -2,8 +2,22 @@
 
 import { TrashIcon } from '@radix-ui/react-icons';
 import { AlertDialog, Button } from '@radix-ui/themes';
+import { useRouter } from 'next/navigation';
+
+import { deleteQuestion } from '@/service/questionService';
 
 const DeleteQuestionButton = ({ questionId }: { questionId: number }) => {
+  const router = useRouter();
+  const deleteHandler = async (questionId: number) => {
+    try {
+      await deleteQuestion(questionId);
+      router.push('/questions');
+      router.refresh();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <AlertDialog.Root>
       <AlertDialog.Trigger>
@@ -30,7 +44,7 @@ const DeleteQuestionButton = ({ questionId }: { questionId: number }) => {
             marginTop: 25,
           }}
         >
-          <AlertDialog.Cancel> 
+          <AlertDialog.Cancel>
             <Button
               className="cursor-pointer"
               color="gray"
@@ -44,6 +58,7 @@ const DeleteQuestionButton = ({ questionId }: { questionId: number }) => {
               color="red"
               className="cursor-pointer"
               variant="soft"
+              onClick={() => deleteHandler(questionId)}
             >
               Yes, delete question
             </Button>
