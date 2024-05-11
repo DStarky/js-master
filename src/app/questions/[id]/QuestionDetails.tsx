@@ -17,7 +17,7 @@ const QuestionDetails = ({ question }: { question: Question }) => {
         <Text>{question.createdAt.toLocaleDateString('ru-RU')}</Text>
       </Flex>
       <Card
-        className="prose"
+        className="prose max-w-full"
         mt="4"
       >
         <Markdown>{question.description}</Markdown>

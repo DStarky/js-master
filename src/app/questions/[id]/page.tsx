@@ -1,8 +1,9 @@
-import { Box, Grid } from '@radix-ui/themes';
+import { Box, Flex, Grid } from '@radix-ui/themes';
 import { notFound } from 'next/navigation';
 
 import prisma from '../../../../prisma/client';
 
+import DeleteQuestionButton from './DeleteQuestionButton';
 import EditQuestionButton from './EditQuestionButton';
 import QuestionDetails from './QuestionDetails';
 
@@ -21,14 +22,20 @@ const QuestionDetailPage = async ({ params }: QuestionDetailPageProps) => {
 
   return (
     <Grid
-      columns={{ initial: '1', md: '2' }}
+      columns={{ initial: '1', md: '5' }}
       gap="5"
     >
-      <Box>
+      <Box className="lg:col-span-4">
         <QuestionDetails question={question} />
       </Box>
       <Box>
-        <EditQuestionButton questionId={question.id} />
+        <Flex
+          direction="column"
+          gap="4"
+        >
+          <EditQuestionButton questionId={question.id} />
+          <DeleteQuestionButton questionId={question.id} />
+        </Flex>
       </Box>
     </Grid>
   );
