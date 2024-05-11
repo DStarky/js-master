@@ -14,7 +14,7 @@ const NavBarLinks = () => {
     },
     {
       label: 'Questions',
-      href: '/questions',
+      href: '/questions/list',
     },
   ];
 

@@ -2,7 +2,7 @@ import { Table } from '@radix-ui/themes';
 
 import Link from '@/components/ui/Link';
 
-import prisma from '../../../prisma/client';
+import prisma from '../../../../prisma/client';
 
 import QuestionActions from './QuestionActions';
 import { QuestionComplexityBadge, QuestionStatusBadge } from '@/components';
@@ -33,7 +33,7 @@ const QuestionPage = async () => {
             <Table.Row key={question.id}>
               <Table.Cell>
                 <Link href={`/questions/${question.id}`}>{question.title}</Link>
-                <div className="mt-2 block md:hidden space-x-3">
+                <div className="mt-2 block space-x-3 md:hidden">
                   <QuestionStatusBadge status={question.status} />
                   <QuestionComplexityBadge complexity={question.complexity} />
                 </div>

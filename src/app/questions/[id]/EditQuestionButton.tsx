@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 const EditQuestionButton = ({ questionId }: { questionId: number }) => {
   return (
-    <Link href={`/questions/${questionId}/edit`}>
+    <Link href={`/questions/edit/${questionId}`}>
       <Button className="w-full">
         <Pencil2Icon />
         Edit Question

@@ -17,7 +17,7 @@ const DeleteQuestionButton = ({ questionId }: { questionId: number }) => {
     try {
       setIsDeleting(true);
       await deleteQuestion(questionId);
-      router.push('/questions');
+      router.push('/questions/list');
       router.refresh();
     } catch (error) {
       setIsDeleting(false);
