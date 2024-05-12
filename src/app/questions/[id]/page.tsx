@@ -1,4 +1,5 @@
 import { Box, Flex, Grid } from '@radix-ui/themes';
+import { getServerSession } from 'next-auth';
 import { notFound } from 'next/navigation';
 
 import prisma from '../../../../prisma/client';
@@ -6,6 +7,7 @@ import prisma from '../../../../prisma/client';
 import DeleteQuestionButton from './DeleteQuestionButton';
 import EditQuestionButton from './EditQuestionButton';
 import QuestionDetails from './QuestionDetails';
+import authOptions from '@/auth/authOptions';
 
 interface QuestionDetailPageProps {
   params: {
@@ -14,6 +16,8 @@ interface QuestionDetailPageProps {
 }
 
 const QuestionDetailPage = async ({ params }: QuestionDetailPageProps) => {
+  const session = await getServerSession(authOptions);
+
   const question = await prisma.question.findUnique({
     where: { id: Number(params.id) },
   });
@@ -28,15 +32,17 @@ const QuestionDetailPage = async ({ params }: QuestionDetailPageProps) => {
       <Box className="lg:col-span-4">
         <QuestionDetails question={question} />
       </Box>
-      <Box>
-        <Flex
-          direction="column"
-          gap="4"
-        >
-          <EditQuestionButton questionId={question.id} />
-          <DeleteQuestionButton questionId={question.id} />
-        </Flex>
-      </Box>
+      {session && (
+        <Box>
+          <Flex
+            direction="column"
+            gap="4"
+          >
+            <EditQuestionButton questionId={question.id} />
+            <DeleteQuestionButton questionId={question.id} />
+          </Flex>
+        </Box>
+      )}
     </Grid>
   );
 };
