@@ -2,13 +2,15 @@ import { Box } from '@radix-ui/themes';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 
+import Skeleton from '@/components/ui/Skeleton';
+
 import NavBarDropdownMenu from './NavBarDropdownMenu';
 
 const NavBarAuthSection = () => {
   const { status, data: session } = useSession();
 
   if (status === 'loading') {
-    return <SimpleSpinner />;
+    return <Skeleton width={'3rem'} />;
   }
 
   if (status === 'unauthenticated')
@@ -25,9 +27,3 @@ const NavBarAuthSection = () => {
   );
 };
 export default NavBarAuthSection;
-
-const SimpleSpinner = () => {
-  return (
-    <div className="h-5 w-5 animate-spin rounded-full border-2 border-gray-600"></div>
-  );
-};
