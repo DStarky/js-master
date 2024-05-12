@@ -39,7 +39,7 @@ const QuestionDetailPage = async ({ params }: QuestionDetailPageProps) => {
             direction="column"
             gap="4"
           >
-            <AuthorSelect />
+            <AuthorSelect question={question} />
             <EditQuestionButton questionId={question.id} />
             <DeleteQuestionButton questionId={question.id} />
           </Flex>

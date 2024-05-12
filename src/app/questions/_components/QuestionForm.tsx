@@ -11,10 +11,11 @@ import SimpleMDE from 'react-simplemde-editor';
 import { z } from 'zod';
 
 import { ErrorMessage, Spinner } from '@/components';
-import { questionSchema } from '@/lib/validation/questionSchema';
+import { patchQuestionSchema, questionSchema } from '@/lib/validation/questionSchema';
 import { createNewQuestion, updateQuestion } from '@/service/questionService';
 
 export type QuestionData = z.infer<typeof questionSchema>;
+export type PatchQuestionData = z.infer<typeof patchQuestionSchema>;
 
 interface QuestionFormProps {
   question?: Question;
