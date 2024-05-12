@@ -1,11 +1,10 @@
-import delay from 'delay';
 import { getServerSession } from 'next-auth';
 import { NextRequest, NextResponse } from 'next/server';
 
 import prisma from '../../../../../prisma/client';
 
 import authOptions from '@/auth/authOptions';
-import { questionSchema } from '@/lib/validation/questionSchema';
+import { patchQuestionSchema } from '@/lib/validation/questionSchema';
 
 export async function PATCH(
   request: NextRequest,
@@ -16,9 +15,21 @@ export async function PATCH(
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
   const body = await request.json();
-  const validation = questionSchema.safeParse(body);
+  const validation = patchQuestionSchema.safeParse(body);
   if (!validation.success) {
     return NextResponse.json(validation.error.format(), { status: 400 });
+  }
+
+  const { authoredByUserID, title, description } = body;
+
+  if (authoredByUserID) {
+    const user = await prisma.user.findUnique({
+      where: { id: authoredByUserID },
+    });
+
+    if (!user) {
+      return NextResponse.json({ error: 'User not found' }, { status: 404 });
+    }
   }
 
   const question = await prisma.question.findUnique({
@@ -32,8 +43,9 @@ export async function PATCH(
   const updatedQuestion = await prisma.question.update({
     where: { id: question.id },
     data: {
-      title: body.title,
-      description: body.description,
+      title,
+      description,
+      authoredByUserID,
     },
   });
 
@@ -47,7 +59,7 @@ export async function DELETE(
   const session = await getServerSession(authOptions);
   if (!session)
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  
+
   const question = await prisma.question.findUnique({
     where: { id: Number(params.id) },
   });
