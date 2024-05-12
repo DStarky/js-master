@@ -3,6 +3,7 @@
 import { Question } from '@prisma/client';
 import { Select } from '@radix-ui/themes';
 import { useQuery } from '@tanstack/react-query';
+import toast, { Toaster } from 'react-hot-toast';
 
 import { Skeleton } from '@/components';
 import { updateQuestion } from '@/service/questionService';
@@ -32,27 +33,38 @@ const AuthorSelect = ({ question }: { question: Question }) => {
     const data = {
       authoredByUserID: userId || null,
     };
-    await updateQuestion(question.id, data);
+    try {
+      await updateQuestion(question.id, data);
+      toast.success('Changes saved');
+    } catch (error) {
+      toast.error('Changes not saved');
+    }
   };
 
   return (
-    <Select.Root onValueChange={changeAuthorHandler} defaultValue={question.authoredByUserID || ''}>
-      <Select.Trigger placeholder="Author..." />
-      <Select.Content>
-        <Select.Group>
-          <Select.Label>Suggestions</Select.Label>
-          <Select.Item value="">None</Select.Item>
-          {users?.map(user => (
-            <Select.Item
-              key={user.id}
-              value={user.id}
-            >
-              {user.name}
-            </Select.Item>
-          ))}
-        </Select.Group>
-      </Select.Content>
-    </Select.Root>
+    <>
+      <Select.Root
+        onValueChange={changeAuthorHandler}
+        defaultValue={question.authoredByUserID || 'none'}
+      >
+        <Select.Trigger placeholder="Author..." />
+        <Select.Content>
+          <Select.Group>
+            <Select.Label>Suggestions</Select.Label>
+            <Select.Item value="none">None</Select.Item>
+            {users?.map(user => (
+              <Select.Item
+                key={user.id}
+                value={user.id}
+              >
+                {user.name}
+              </Select.Item>
+            ))}
+          </Select.Group>
+        </Select.Content>
+      </Select.Root>
+      <Toaster />
+    </>
   );
 };
 export default AuthorSelect;
