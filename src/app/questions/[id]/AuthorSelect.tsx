@@ -10,16 +10,7 @@ import { updateQuestion } from '@/service/questionService';
 import { getUsers } from '@/service/userService';
 
 const AuthorSelect = ({ question }: { question: Question }) => {
-  const {
-    data: users,
-    error,
-    isLoading,
-  } = useQuery({
-    queryKey: ['users'],
-    queryFn: getUsers,
-    staleTime: 1000 * 60 * 5,
-    retry: 3,
-  });
+  const { data: users, error, isLoading } = useUsers();
 
   if (isLoading) {
     return <Skeleton height="2rem" />;
@@ -67,4 +58,13 @@ const AuthorSelect = ({ question }: { question: Question }) => {
     </>
   );
 };
+
+const useUsers = () =>
+  useQuery({
+    queryKey: ['users'],
+    queryFn: getUsers,
+    staleTime: 1000 * 60 * 5,
+    retry: 3,
+  });
+
 export default AuthorSelect;
