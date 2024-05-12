@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation';
 
 import prisma from '../../../../prisma/client';
 
-import AssigneeSelect from './AssigneeSelect';
+import AuthorSelect from './AuthorSelect';
 import DeleteQuestionButton from './DeleteQuestionButton';
 import EditQuestionButton from './EditQuestionButton';
 import QuestionDetails from './QuestionDetails';
@@ -39,7 +39,7 @@ const QuestionDetailPage = async ({ params }: QuestionDetailPageProps) => {
             direction="column"
             gap="4"
           >
-            <AssigneeSelect />
+            <AuthorSelect />
             <EditQuestionButton questionId={question.id} />
             <DeleteQuestionButton questionId={question.id} />
           </Flex>

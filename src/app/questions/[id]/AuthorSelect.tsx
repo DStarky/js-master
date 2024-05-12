@@ -6,7 +6,7 @@ import { useQuery } from '@tanstack/react-query';
 import { Skeleton } from '@/components';
 import { getUsers } from '@/service/userService';
 
-const AssigneeSelect = () => {
+const AuthorSelect = () => {
   const {
     data: users,
     error,
@@ -28,7 +28,7 @@ const AssigneeSelect = () => {
 
   return (
     <Select.Root>
-      <Select.Trigger placeholder="Assignee..." />
+      <Select.Trigger placeholder="Author..." />
       <Select.Content>
         <Select.Group>
           <Select.Label>Suggestions</Select.Label>
@@ -45,4 +45,4 @@ const AssigneeSelect = () => {
     </Select.Root>
   );
 };
-export default AssigneeSelect;
+export default AuthorSelect;
